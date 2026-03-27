@@ -55,6 +55,21 @@ def generate_sql():
             terminator = ";\n\n" if i == NUM_BOOKS - 1 else ",\n"
             f.write(f"('{title}', '{author}', '{isbn}'){terminator}")
 
+        f.write("-- Inserting 12 custom Books\n")
+        f.write("INSERT INTO books (Title, Author, Isbn) VALUES\n")
+        f.write("('The Golden Era of Hip-Hop', 'Stefano Sancho Agada', '978-1-84049-901-8'),\n")
+        f.write("('Inside the Paint: Basketball Strategies', 'Stefano Sancho Agada', '978-0-01-297961-7'),\n")
+        f.write("('Cyborgs and Intergalactic Empires', 'Stefano Sancho Agada', '978-1-967753-53-6'),\n")
+        f.write("('Mastering Asian Street Food', 'Linh Nguyen', '978-0-241-65371-5'),\n")
+        f.write("('Data Structures and Algorithms', 'Linh Nguyen', '978-1-00-210417-0'),\n")
+        f.write("('The Art of Wok Cooking', 'Linh Nguyen', '978-0-202-47320-8'),\n")
+        f.write("('Colonizing the Outer Planets', 'Juan DAAI', '978-0-7622-4523-9'),\n")
+        f.write("('Graffiti Techniques and Lettering', 'Juan DAAI', '978-0-87301-813-5'),\n")
+        f.write("('Spaceships and Nebula Tourism', 'Juan DAAI', '978-0-7705-0180-8'),\n")
+        f.write("('Advanced Plant Nutrition and Fertilizers', 'Niels Zimmermann', '978-1-74531-713-4'),\n")
+        f.write("('Skateboarding: Mastering Lifestyle on Board', 'Niels Zimmermann', '978-0-14-274848-0'),\n")
+        f.write("('Rocket Science and boosting Mechanics', 'Niels Zimmermann', '978-0-00-880035-2');\n\n")
+
         # ---------------------------------------------------------
         # 2. GENERATE BORROWERS
         # ---------------------------------------------------------
