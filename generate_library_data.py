@@ -18,6 +18,13 @@ def generate_sql():
     with open("massive_sample_data.sql", "w", encoding="utf-8") as f:
         f.write("USE liane_library;\n\n")
         
+        f.write("-- Reset tables to ensure AUTO_INCREMENT starts at 1\n")
+        f.write("SET FOREIGN_KEY_CHECKS = 0;\n")
+        f.write("TRUNCATE TABLE loans;\n")
+        f.write("TRUNCATE TABLE books;\n")
+        f.write("TRUNCATE TABLE borrowers;\n")
+        f.write("SET FOREIGN_KEY_CHECKS = 1;\n\n")
+        
         # ---------------------------------------------------------
         # 1. GENERATE BOOKS
         # ---------------------------------------------------------
