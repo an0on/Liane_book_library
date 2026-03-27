@@ -2,11 +2,11 @@ import random
 from datetime import date, timedelta
 from faker import Faker
 
-fake = Faker('en_US') # English data for consistency with your README
+fake = Faker('en_US')
 
 NUM_BOOKS = 10000
 NUM_BORROWERS = 350
-NUM_LOANS = 25000 # Let's create a rich history of 25,000 loans
+NUM_LOANS = 25000
 
 START_DATE = date(2000, 1, 1)
 TODAY = date(2026, 3, 27)
@@ -21,15 +21,29 @@ def generate_sql():
         # ---------------------------------------------------------
         # 1. GENERATE BOOKS
         # ---------------------------------------------------------
-        print("Generating 10,000 books...")
+        print("Generating 10,000 unique books...")
         f.write("-- Inserting 10,000 Books\n")
         f.write("INSERT INTO books (Title, Author, Isbn) VALUES\n")
         
+        # We use sets to track what we've already generated
+        unique_titles = set()
+        unique_isbns = set()
+        
         for i in range(NUM_BOOKS):
-            # Generating somewhat realistic book titles
+            # Generate a truly unique Title
             title = fake.catch_phrase().replace("'", "''").title()
+            while title in unique_titles:
+                # If duplicate, append a random edition number to make it unique
+                title = f"{fake.catch_phrase().replace('\'', '\'\'').title()} (Vol. {random.randint(2, 9999)})"
+            unique_titles.add(title)
+            
             author = fake.name().replace("'", "''")
+            
+            # Generate a truly unique ISBN
             isbn = fake.isbn13()
+            while isbn in unique_isbns:
+                isbn = fake.isbn13()
+            unique_isbns.add(isbn)
             
             terminator = ";\n\n" if i == NUM_BOOKS - 1 else ",\n"
             f.write(f"('{title}', '{author}', '{isbn}'){terminator}")
@@ -57,7 +71,6 @@ def generate_sql():
         print(f"Generating {NUM_LOANS} loans since 2000...")
         f.write(f"-- Inserting {NUM_LOANS} Loans (Past, Active, Overdue)\n")
         
-        # Batching inserts to prevent SQL execution errors on massive lines
         batch_size = 1000
         for batch_start in range(0, NUM_LOANS, batch_size):
             f.write("INSERT INTO loans (BookID, BorrowerID, BorrowDate, ScheduledReturnDate, ReturnDate) VALUES\n")
@@ -68,17 +81,14 @@ def generate_sql():
                 borrower_id = random.randint(1, NUM_BORROWERS)
                 
                 borrow_date = random_date(START_DATE, TODAY)
-                scheduled_return = borrow_date + timedelta(days=90) # 3 months roughly
+                scheduled_return = borrow_date + timedelta(days=90)
                 
-                # Determine if returned or active
-                is_active = random.random() < 0.05 # 5% of all historic loans are currently active
+                is_active = random.random() < 0.05
                 
                 if is_active:
                     return_date_str = "NULL"
                 else:
-                    # Returned between 1 and 120 days later
                     return_date = borrow_date + timedelta(days=random.randint(1, 120))
-                    # Prevent return dates in the future
                     if return_date > TODAY:
                         return_date = TODAY
                     return_date_str = f"'{return_date}'"
