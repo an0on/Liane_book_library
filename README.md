@@ -27,13 +27,13 @@ Beneath the user-friendly web interface lies a rigorously normalized relational 
 
 Currently, the system lives in the magical and strict realm of SQL. To get the backend running:
 
-1. **First, run `db_setup.sql`** in your database environment (like MySQL Workbench) to build the empty schema.
-2. **(Optional) The Gentle Approach:** Run `sample_data_input.sql` afterwards. If you wish to put in some sample data to see the logic in action without typing your entire physical library first, this script provides you with some legendary book classics and a few shady test borrowers.
+1. **First, run `DB_setup.sql`** in your database environment (like MySQL Workbench) to build the empty schema.
+2. **(Optional) The Gentle Approach:** Run `SampleDataInput.sql` afterwards. If you wish to put in some sample data to see the logic in action without typing your entire physical library first, this script provides you with some legendary book classics and a few shady test borrowers.
 3. **(Optional) THE STRESS TEST (Massive Data Generator):** Do you want to simulate a 26-year history involving 10,000 books, 350 borrowers, and 25,000 loan transactions? Of course you do. We built a Python script to populate the ultimate "Wall of Shame."
    * Ensure you have Python installed.
    * Open your terminal and install the required fake-data library: `pip install Faker`
-   * Run the generator script: `python generate_library_data.py`
-   * This will birth a heavy `massive_sample_data.sql` file. Import and run that bad boy in your database environment to instantly experience the glorious chaos of a fully operational, heavily abused library.
+   * Run the Python generator script: `generate_SQL_for_massive_Data.py`
+   * This will birth a heavy `generate_massive_sample_data.sql` file. Import and run that bad boy in your database environment to instantly experience the glorious chaos of a fully operational, heavily abused library.
 
 ---
 
