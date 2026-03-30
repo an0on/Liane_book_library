@@ -52,3 +52,13 @@ venv.bak/
 .idea/
 *.swp
 *.swo
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Custom Environments
+lianes-lib-env
+
+# Credentials/Secrets
+connect.py
