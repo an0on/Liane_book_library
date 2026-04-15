@@ -30,7 +30,9 @@ def generate_sql():
         # ---------------------------------------------------------
         print("Generating 10,000 unique books...")
         f.write("-- Inserting 10,000 Books\n")
-        f.write("INSERT INTO books (Title, Author, Isbn) VALUES\n")
+        f.write("INSERT INTO books (Title, Author, Genre, Isbn) VALUES\n")
+        
+        genres = ['Fiction', 'Non-Fiction', 'Science Fiction', 'Fantasy', 'Mystery', 'Thriller', 'Romance', 'Historical', 'Biography', 'Self-Help', 'Children', 'Young Adult', 'Poetry', 'Horror', 'Comic']
         
         # We use sets to track what we've already generated
         unique_titles = set()
@@ -45,6 +47,7 @@ def generate_sql():
             unique_titles.add(title)
             
             author = fake.name().replace("'", "''")
+            genre = random.choice(genres)
             
             # Generate a truly unique ISBN
             isbn = fake.isbn13()
@@ -53,22 +56,22 @@ def generate_sql():
             unique_isbns.add(isbn)
             
             terminator = ";\n\n" if i == NUM_BOOKS - 1 else ",\n"
-            f.write(f"('{title}', '{author}', '{isbn}'){terminator}")
+            f.write(f"('{title}', '{author}', '{genre}', '{isbn}'){terminator}")
 
         f.write("-- Inserting 12 custom Books\n")
-        f.write("INSERT INTO books (Title, Author, Isbn) VALUES\n")
-        f.write("('The Golden Era of Hip-Hop', 'Stefano Sancho Agada', '978-1-84049-901-8'),\n")
-        f.write("('Inside the Paint: Basketball Strategies', 'Stefano Sancho Agada', '978-0-01-297961-7'),\n")
-        f.write("('Cyborgs and Intergalactic Empires', 'Stefano Sancho Agada', '978-1-967753-53-6'),\n")
-        f.write("('Mastering Asian Street Food', 'Linh Nguyen', '978-0-241-65371-5'),\n")
-        f.write("('Data Structures and Algorithms', 'Linh Nguyen', '978-1-00-210417-0'),\n")
-        f.write("('The Art of Wok Cooking', 'Linh Nguyen', '978-0-202-47320-8'),\n")
-        f.write("('Colonizing the Outer Planets', 'Juan DAAI', '978-0-7622-4523-9'),\n")
-        f.write("('Graffiti Techniques and Lettering', 'Juan DAAI', '978-0-87301-813-5'),\n")
-        f.write("('Spaceships and Nebula Tourism', 'Juan DAAI', '978-0-7705-0180-8'),\n")
-        f.write("('Advanced Plant Nutrition and Fertilizers', 'Niels Zimmermann', '978-1-74531-713-4'),\n")
-        f.write("('Skateboarding: Mastering Lifestyle on Board', 'Niels Zimmermann', '978-0-14-274848-0'),\n")
-        f.write("('Rocket Science and boosting Mechanics', 'Niels Zimmermann', '978-0-00-880035-2');\n\n")
+        f.write("INSERT INTO books (Title, Author, Genre, Isbn) VALUES\n")
+        f.write("('The Golden Era of Hip-Hop', 'Stefano Sancho Agada', 'Non-Fiction', '978-1-84049-901-8'),\n")
+        f.write("('Inside the Paint: Basketball Strategies', 'Stefano Sancho Agada', 'Sports', '978-0-01-297961-7'),\n")
+        f.write("('Cyborgs and Intergalactic Empires', 'Stefano Sancho Agada', 'Science Fiction', '978-1-967753-53-6'),\n")
+        f.write("('Mastering Asian Street Food', 'Linh Nguyen', 'Cooking', '978-0-241-65371-5'),\n")
+        f.write("('Data Structures and Algorithms', 'Linh Nguyen', 'Education', '978-1-00-210417-0'),\n")
+        f.write("('The Art of Wok Cooking', 'Linh Nguyen', 'Cooking', '978-0-202-47320-8'),\n")
+        f.write("('Colonizing the Outer Planets', 'Juan DAAI', 'Science Fiction', '978-0-7622-4523-9'),\n")
+        f.write("('Graffiti Techniques and Lettering', 'Juan DAAI', 'Art', '978-0-87301-813-5'),\n")
+        f.write("('Spaceships and Nebula Tourism', 'Juan DAAI', 'Science Fiction', '978-0-7705-0180-8'),\n")
+        f.write("('Advanced Plant Nutrition and Fertilizers', 'Niels Zimmermann', 'Science', '978-1-74531-713-4'),\n")
+        f.write("('Skateboarding: Mastering Lifestyle on Board', 'Niels Zimmermann', 'Sports', '978-0-14-274848-0'),\n")
+        f.write("('Rocket Science and boosting Mechanics', 'Niels Zimmermann', 'Science', '978-0-00-880035-2');\n\n")
 
         # ---------------------------------------------------------
         # 2. GENERATE BORROWERS
