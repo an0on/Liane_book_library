@@ -1,0 +1,8 @@
+streamlit
+pandas
+sqlalchemy
+pymysql
+cryptography
+Faker
+matplotlib
+altair
