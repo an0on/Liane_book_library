@@ -86,6 +86,16 @@ Once your database is ready, the conda environment is active, and the `connect.p
 
 ---
 
+### ☁️ Cloud & Docker Deployment (e.g., Coolify)
+
+This application is fully containerized and ready for cloud deployment via **Docker**.
+
+1. **Docker Build:** Use the provided `Dockerfile`.
+2. **Environment Variables:** For security in cloud environments, the app will prioritize environment variables over the local `connect.py`. Configure these in your dashboard (Coolify, etc.):
+   - `MYSQL_HOST`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_PORT`
+
+---
+
 ## 🔮 The Master Plan (Coming Soon™)
 
 This project has successfully evolved from a raw SQL foundation into a true platform. But we're not done yet. Upcoming features include:
